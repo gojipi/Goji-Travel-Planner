@@ -3,62 +3,47 @@ import streamlit as st
 # 1. SETUP PAGE
 st.set_page_config(page_title="Goji Travel Planner", page_icon="🗺️", layout="wide")
 
-# 2. THE PREMIUM UI (CLEAN DESIGN - NO GLITCH)
+# 2. THE ULTIMATE CSS (ANTI-GLITCH V7 - PERMANENT FIX)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap');
     
     .stApp { background-color: #0b0e14; }
 
-    /* Font Global: Gunakan Inter untuk kejelasan */
-    html, body, [class*="st-"] {
+    /* 1. Paksa Font Inter pada Markdown & Teks Kandungan Sahaja */
+    .stMarkdown p, .stMarkdown li, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, 
+    [data-testid="stMetricValue"], [data-testid="stMetricLabel"], .stCheckbox label {
         font-family: 'Inter', sans-serif !important;
         color: #ffffff !important;
     }
 
-    /* Tajuk Gempak: Gunakan Montserrat */
-    h1, h2, h3 {
-        font-family: 'Montserrat', sans-serif !important;
-        font-weight: 700 !important;
-    }
-
+    /* 2. KHAS UNTUK TAJUK */
     h1 { 
+        font-family: 'Montserrat', sans-serif !important; 
         color: #f1c40f !important; 
         font-size: 48px !important; 
-        text-align: center; 
-        margin-bottom: 30px;
+        text-align: center;
         text-shadow: 2px 2px #000000;
     }
 
-    /* Fix Glitch: Kita biarkan icon sistem guna font asal */
-    [data-testid="stIcon"], svg, .material-icons {
+    /* 3. PAGAR BESI: Haramkan tukar font pada elemen sistem */
+    /* Ini untuk pastikan 'keyboard_double_arrow' jadi icon balik */
+    button, [data-testid="stHeader"], [data-testid="stIcon"], svg, 
+    [data-testid="collapsedControl"], .st-emotion-cache-6qob1r {
         font-family: inherit !important;
     }
 
-    /* Card Metrics */
+    /* Card Metrics Layout */
     div[data-testid="stMetricContainer"] {
         background-color: #1a1f29; 
         border: 1px solid #3498db; 
         border-radius: 12px; 
         padding: 20px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
-    /* Sidebar */
     [data-testid="stSidebar"] { 
         background-color: #161b22 !important; 
         border-right: 1px solid #3498db; 
-    }
-
-    /* Tab Styling */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        background-color: #1a1f29;
-        border-radius: 8px 8px 0 0;
-        padding: 10px 20px;
-        color: white;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -105,7 +90,7 @@ c4.metric("DRESS CODE", info['cloth'])
 
 st.divider()
 
-# 5. ITINERARY DATABASE (FULL KNOWLEDGE - ZERO TRIMMING)
+# 5. ITINERARY DATABASE (FULL & DETAILED)
 itineraries = {
     "Bangkok": """
     * **Day 1: Arrival & Night Street Food** - Check-in and head to Jodd Fairs. Must try: Volcanic Pork Ribs & Fruit Shakes.
@@ -177,7 +162,7 @@ itineraries = {
     * **Day 4: Akihabara Quest** - The Electric Town. Anime, manga, and retro gaming shops.
     * **Day 5: Disney Day** - Full day at Tokyo DisneySea or Tokyo Disneyland.
     * **Day 6: TeamLab Borderless** - Immersive digital art museum. Afternoon at Ginza.
-    * **Day 7: Tsukiji Breakfast** - Early morning sushi at Tsukiji Outer Market. Souvenir run at Donki.
+    * **Day 7: Tsukiji Breakfast** - Early morning sushi at Tsukiji Outer Market.
     """
 }
 
@@ -190,7 +175,7 @@ with tab1:
 
 with tab2:
     st.header("🎒 The 30KG Packing List")
-    st.warning("⚠️ PRO TIP: Don't forget your UNIVERSAL ADAPTER (Lesson from Vietnam!)")
+    st.warning("⚠️ PRO TIP: Don't forget your UNIVERSAL ADAPTER!")
     c_a, c_b = st.columns(2)
     with c_a:
         st.subheader("📁 Documents")
