@@ -3,26 +3,34 @@ import streamlit as st
 # 1. SETUP PAGE
 st.set_page_config(page_title="Goji Travel Planner", page_icon="🗺️", layout="wide")
 
-# 2. THE ULTIMATE CSS FIX (ANTI-GLITCH)
+# 2. THE ULTIMATE CSS FIX (ANTI-GLITCH V3)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    
     .stApp { background-color: #0e1117; }
 
-    h1, h2, h3, h4, p, label, li, [data-testid="stMetricValue"], [data-testid="stMetricLabel"], span:not(:has(svg)) {
+    /* Target spesifik teks SAHAJA. JANGAN KACAU span umum. */
+    h1, h2, h3, h4, 
+    [data-testid="stMarkdownContainer"] p, 
+    [data-testid="stMarkdownContainer"] li,
+    [data-testid="stMetricValue"], 
+    [data-testid="stMetricLabel"],
+    label {
         font-family: 'VT323', monospace !important;
         color: #ffffff !important;
     }
 
-    [data-testid="stIcon"], svg, i, .material-icons {
-        font-family: inherit !important;
+    /* INI UBAT DIA: Paksa icon guna font asal & sorok teks hantu */
+    [data-testid="stIcon"], svg, .material-icons {
+        font-family: 'Source Sans Pro', sans-serif !important;
         display: inline-block !important;
     }
 
-    h1 { color: #f1c40f !important; font-size: 55px !important; text-shadow: 3px 3px #000000; }
-    [data-testid="stSidebar"] { background-color: #1e2129 !important; border-right: 1px solid #3498db; }
-    [data-testid="stMetricValue"] { color: #f1c40f !important; font-size: 45px !important; }
-
+    /* Styling lain-lain */
+    h1 { color: #f1c40f !important; font-size: 55px !important; text-shadow: 2px 2px #000000; }
+    [data-testid="stSidebar"] { background-color: #1e2129 !important; border-right: 2px solid #3498db; }
+    
     .stButton>button {
         background-color: #3498db !important;
         color: white !important;
@@ -32,7 +40,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# 3. SIDEBAR (SETTINGS & CONVERTER)
+# 3. SIDEBAR & CURRENCY CONVERTER
 with st.sidebar:
     st.header("⚙️ SETTINGS")
     destinasi = st.selectbox("DESTINATION:", ["Bangkok", "Phuket", "Danang"])
@@ -53,7 +61,7 @@ with st.sidebar:
     harga_tiket = {"Bangkok": 450, "Phuket": 380, "Danang": 650}
     tiket = harga_tiket[destinasi]
 
-# 4. MAIN CONTENT
+# 4. MAIN CONTENT (NO TRIMMING)
 st.title("🗺️ GOJI TRAVEL PLANNER")
 
 total_kos = (hari * hotel) + (hari * makan) + tiket
@@ -64,7 +72,7 @@ c3.metric("DURATION", f"{hari} DAYS")
 
 st.divider()
 
-# 5. ITINERARY DATABASE (FULL & LONG)
+# 5. ITINERARY DATABASE (FULL)
 itineraries = {
     "Bangkok": """
     * **Day 1: Arrival & Night Vibe** - Check-in hotel, dinner at Jodd Fairs Night Market (cuba Volcanic Ribs!).
@@ -96,36 +104,28 @@ itineraries = {
 }
 
 # 6. TABS
-tab1, tab2, tab3 = st.tabs(["📜 ITINERARY", "🎒 ULTIMATE CHECKLIST", "📓 JOURNAL"])
+tab1, tab2, tab3 = st.tabs(["📜 ITINERARY", "🎒 30KG CHECKLIST", "📓 JOURNAL"])
 
 with tab1:
     st.info(itineraries[destinasi])
 
 with tab2:
-    st.header("🎒 The 30KG Luggage Checklist")
-    st.warning("⚠️ JANGAN LUPA: UNIVERSAL ADAPTER! Belajar dari sejarah pahit Vietnam!")
+    st.header("🎒 The Ultimate 30KG Checklist")
+    st.warning("⚠️ REMINDER: UNIVERSAL ADAPTER (Jangan masak lagi macam kat Vietnam!)")
     
     col_a, col_b = st.columns(2)
-    
     with col_a:
         st.subheader("📁 Documents & Essentials")
-        for item in ["Passport (Valid >6 months)", "Flight Ticket & E-Boarding Pass", "Hotel Booking Confirmation", "Travel Insurance (Hardcopy)", "International Driving License", "Cash (VND/THB) & Debit Card (Activated)"]:
-            st.checkbox(item)
-            
-        st.subheader("🔌 Electronics & Tech")
-        for item in ["Universal Travel Adapter", "Extension Wire (Sangat Penting!)", "Powerbank 20,000mAh", "Charging Cables & Wired Earphones", "Gimbal/Tripod for Sunset Photos"]:
-            st.checkbox(item)
-
+        for i in ["Passport", "Ticket", "Hotel Booking", "Travel Insurance", "Cash VND/THB"]: st.checkbox(i)
+        st.subheader("🔌 Electronics")
+        for i in ["Universal Adapter", "Extension Wire", "Powerbank 20k mAh", "Gimbal/Tripod"]: st.checkbox(i)
     with col_b:
         st.subheader("🧴 Toiletries & Skincare")
-        for item in ["Skincare Kit (Niacinamide/Hydration)", "Sunscreen SPF 50++", "Toothbrush & Travel Size Toothpaste", "Wet Wipes & Hand Sanitizer", "Ubat-ubatan (Panadol/Minyak Angin)"]:
-            st.checkbox(item)
-            
+        for i in ["Skincare Kit (Hydration)", "Sunscreen SPF 50", "Toothbrush", "Wet Wipes"]: st.checkbox(i)
         st.subheader("👕 Clothes & Misc")
-        for item in ["7 Sets of Outfits", "Comfortable Walking Shoes", "Microfiber Towel", "Raincoat/Small Umbrella", "Empty Tupperware (Tapau Streetfood)", "Plastic Bags for Dirty Laundry"]:
-            st.checkbox(item)
+        for i in ["7 Sets Outfit", "Walking Shoes", "Tupperware (Tapau)", "Plastic Bags"]: st.checkbox(i)
 
 with tab3:
-    nota = st.text_area("Writer's Secret Logs...", height=200, placeholder="Inspirasi dari sunset hari ini...")
+    nota = st.text_area("Write your logs here...", height=200)
     if st.button("SAVE ENTRY"):
-        st.success("Log archived in the database!")
+        st.success("Entry saved!")
